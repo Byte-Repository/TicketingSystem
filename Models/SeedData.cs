@@ -89,7 +89,7 @@ namespace CIDM3312_FINALPROJECT.Data
                 TicketHistory = DateTime.Now,
                 Search = "application, crash, startup",
                 Management = "Assigned to developer",
-                Customers = new List<Customer> { customer }
+                CustomerId = customer.Id
                 };
 
                 tickets.Add(ticket);
