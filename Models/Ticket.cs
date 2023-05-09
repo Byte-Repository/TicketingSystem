@@ -1,5 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace CIDM3312_FINALPROJECT.Models
 {
@@ -50,10 +52,10 @@ namespace CIDM3312_FINALPROJECT.Models
 
         public string? Management { get; set; }
 
-        
+        [ForeignKey("Customer")]
+
         public int CustomerId { get; set; }
 
-        // Navigation property for customer
         public Customer? Customers { get; set; }
 
     }
