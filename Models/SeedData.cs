@@ -86,7 +86,7 @@ namespace CIDM3312_FINALPROJECT.Data
                 Priority = TicketPriority.High,
                 Type = TicketType.Technical,
                 Description = "Application crashes on startup",
-                TicketHistory = "User reported issue via email",
+                TicketHistory = DateTime.Now,
                 Search = "application, crash, startup",
                 Management = "Assigned to developer",
                 Customers = new List<Customer> { customer }

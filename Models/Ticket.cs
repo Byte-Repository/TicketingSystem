@@ -44,7 +44,7 @@ namespace CIDM3312_FINALPROJECT.Models
         [Required]
         public string? Description { get; set; }
 
-        public string? TicketHistory { get; set; }
+        public DateTime TicketHistory { get; set; }
 
         public string? Search { get; set; }
 
