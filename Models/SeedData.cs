@@ -18,60 +18,88 @@ namespace CIDM3312_FINALPROJECT.Data
                 {
                     return;
                 }
+                
+                // Create a list of customers
+                var customers = new List<Customer>
+                {
 
-                // Create some customer objects
-                var customer1 = new Customer
+                new Customer
                 {
                     FirstName = "John",
                     LastName = "Doe",
                     Email = "johndoe@example.com",
                     PhoneNumber = 1234567890,
                     PaymentMethod = "Credit Card"
-                };
+                },
 
-                var customer2 = new Customer
+                new Customer
                 {
                     FirstName = "Jane",
                     LastName = "Doe",
                     Email = "janedoe@example.com",
                     PhoneNumber = 0987654321,
                     PaymentMethod = "PayPal"
-                };
+                },
 
-                // Add some tickets with customers
-                var tickets = new List<Ticket>
+                new Customer
                 {
-                    new Ticket
-                    {
-                        TicketID = Guid.Parse("1"),
-                        Status = TicketStatus.Open,
-                        Priority = TicketPriority.High,
-                        Type = TicketType.Technical,
-                        Description = "Application crashes on startup",
-                        TicketHistory = "User reported issue via email",
-                        Search = "application, crash, startup",
-                        Management = "Assigned to developer",
-                        Customers = new List<Customer> { customer1 }
-                    },
+                    FirstName = "Bob",
+                    LastName = "Smith",
+                    Email = "bobsmith@example.com",
+                    PhoneNumber = 0012245671,
+                    PaymentMethod = "Credit Card"
+                },
 
-                    new Ticket
-                    {
-                        TicketID = Guid.Parse("2"),
-                        Status = TicketStatus.Closed,
-                        Priority = TicketPriority.Low,
-                        Type = TicketType.General,
-                        Description = "Add support for dark mode",
-                        TicketHistory = "User requested feature via support chat",
-                        Search = "feature, dark mode",
-                        Management = "Implemented in latest release",
-                        Customers = new List<Customer> { customer2 }
-                    }
+                new Customer
+                {
+                    FirstName = "Sarah",
+                    LastName = "Johnson",
+                    Email = "sarahjohnson@example.com",
+                    PhoneNumber = 0122222231,
+                    PaymentMethod = "PayPal"
+                },
+
+                new Customer
+                {
+                    FirstName = "Mike",
+                    LastName = "Williams",
+                    Email = "mikewilliams@example.com",
+                    PhoneNumber = 0112134321,
+                    PaymentMethod = "Check"
+                },
+
+                // Add more customers here
+
                 };
+
+                // Create a list of tickets
+                var tickets = new List<Ticket>();
+
+                // Loop through the customers list and create a new ticket for each customer
+                foreach (var customer in customers)
+                {
+
+                var ticket = new Ticket
+                {
+                TicketID = Guid.NewGuid(),
+                Status = TicketStatus.Open,
+                Priority = TicketPriority.High,
+                Type = TicketType.Technical,
+                Description = "Application crashes on startup",
+                TicketHistory = "User reported issue via email",
+                Search = "application, crash, startup",
+                Management = "Assigned to developer",
+                Customers = new List<Customer> { customer }
+                };
+
+                tickets.Add(ticket);
+                }
 
                 // Add the tickets to the database
                 context.Tickets.AddRange(tickets);
                 context.SaveChanges();
+   
             }
-        }
+        }    
     }
-}
+};
