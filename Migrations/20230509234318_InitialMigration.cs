@@ -39,54 +39,34 @@ namespace CIDM3312_FINALPROJECT.Migrations
                     Description = table.Column<string>(type: "TEXT", nullable: false),
                     TicketHistory = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Search = table.Column<string>(type: "TEXT", nullable: true),
-                    Management = table.Column<string>(type: "TEXT", nullable: true)
+                    Management = table.Column<string>(type: "TEXT", nullable: true),
+                    CustomerId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tickets", x => x.TicketID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CustomerTicket",
-                columns: table => new
-                {
-                    CustomersId = table.Column<int>(type: "INTEGER", nullable: false),
-                    TicketsTicketID = table.Column<Guid>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CustomerTicket", x => new { x.CustomersId, x.TicketsTicketID });
                     table.ForeignKey(
-                        name: "FK_CustomerTicket_Customers_CustomersId",
-                        column: x => x.CustomersId,
+                        name: "FK_Tickets_Customers_CustomerId",
+                        column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CustomerTicket_Tickets_TicketsTicketID",
-                        column: x => x.TicketsTicketID,
-                        principalTable: "Tickets",
-                        principalColumn: "TicketID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerTicket_TicketsTicketID",
-                table: "CustomerTicket",
-                column: "TicketsTicketID");
+                name: "IX_Tickets_CustomerId",
+                table: "Tickets",
+                column: "CustomerId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CustomerTicket");
+                name: "Tickets");
 
             migrationBuilder.DropTable(
                 name: "Customers");
-
-            migrationBuilder.DropTable(
-                name: "Tickets");
         }
     }
 }

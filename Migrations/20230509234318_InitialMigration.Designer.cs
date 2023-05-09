@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CIDM3312_FINALPROJECT.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230509214734_InitialMigration")]
+    [Migration("20230509234318_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -58,6 +58,9 @@ namespace CIDM3312_FINALPROJECT.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -82,37 +85,25 @@ namespace CIDM3312_FINALPROJECT.Migrations
 
                     b.HasKey("TicketID");
 
+                    b.HasIndex("CustomerId");
+
                     b.ToTable("Tickets");
                 });
 
-            modelBuilder.Entity("CustomerTicket", b =>
+            modelBuilder.Entity("CIDM3312_FINALPROJECT.Models.Ticket", b =>
                 {
-                    b.Property<int>("CustomersId")
-                        .HasColumnType("INTEGER");
+                    b.HasOne("CIDM3312_FINALPROJECT.Models.Customer", "Customers")
+                        .WithMany("Tickets")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<Guid>("TicketsTicketID")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("CustomersId", "TicketsTicketID");
-
-                    b.HasIndex("TicketsTicketID");
-
-                    b.ToTable("CustomerTicket");
+                    b.Navigation("Customers");
                 });
 
-            modelBuilder.Entity("CustomerTicket", b =>
+            modelBuilder.Entity("CIDM3312_FINALPROJECT.Models.Customer", b =>
                 {
-                    b.HasOne("CIDM3312_FINALPROJECT.Models.Customer", null)
-                        .WithMany()
-                        .HasForeignKey("CustomersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CIDM3312_FINALPROJECT.Models.Ticket", null)
-                        .WithMany()
-                        .HasForeignKey("TicketsTicketID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }

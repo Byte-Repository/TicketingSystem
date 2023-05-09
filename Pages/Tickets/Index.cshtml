@@ -1,6 +1,12 @@
+@page
 @model CIDM3312_FINALPROJECT.Pages.Tickets.IndexModel
 @using CIDM3312_FINALPROJECT.Models
+@inject Context _context
 @using Microsoft.AspNetCore.Mvc.Rendering
+@using CIDM3312_FINALPROJECT.Data
+@using System.Linq;
+
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -24,19 +30,38 @@
     <thead>
         <tr>
             <th>Ticket ID</th>
-            <th>Ticket Description</th>
-            <th>Ticket History</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Customer</th>
+            <th>Management</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var ticket in Model.Tickets)
-        {
-            <tr>
-                <td>@ticket.TicketID</td>
-                <td>@ticket.Description</td>
-                <td>@ticket.TicketHistory.ToShortDateString()</td>
-            </tr>
-        }
+{
+    <tr>
+        <td>@ticket.TicketID</td>
+        <td>@ticket.Status</td>
+        <td>@ticket.Priority</td>
+        <td>@ticket.Type</td>
+        <td>@ticket.Description</td>
+        <td>
+            <a href="/Customers/Details/@ticket.CustomerId">
+                @{
+                    var customer = _context.Customers.FirstOrDefault(c => c.Id == ticket.CustomerId);
+                    if (customer != null)
+                    {
+                        @customer.FirstName @customer.LastName
+                    }
+                }
+            </a>
+        </td>
+        <td>@ticket.Management</td>
+    </tr>
+}
+
     </tbody>
 </table>
 
