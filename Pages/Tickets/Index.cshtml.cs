@@ -76,7 +76,7 @@ namespace CIDM3312_FINALPROJECT.Pages.Tickets
             }
 
             // Pagination
-            const int pageSize = 5;
+            const int pageSize = 10;
 
             PaginatedList<Ticket> paginatedTickets;
 
