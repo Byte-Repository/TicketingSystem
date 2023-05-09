@@ -50,6 +50,9 @@ namespace CIDM3312_FINALPROJECT.Models
 
         public string? Management { get; set; }
 
+        // foreign key property
+        public int CustomerId { get; set; }
+
         public List<Customer>? Customers { get; set; }
 
     }
