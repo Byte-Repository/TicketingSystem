@@ -1,29 +1,56 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace CIDM3312_FINALPROJECT.Models
 {
+        public enum TicketStatus
+    {
+        Open,
+        InProgress,
+        Resolved,
+        Closed
+    }
+
+    public enum TicketPriority
+    {
+        Low,
+        Medium,
+        High
+    }
+
+    public enum TicketType
+    {
+        Technical,
+        Billing,
+        General
+    }
+
     public class Ticket
     {
-        public int TicketID {get; set;}
-        [StringLength(60, MinimumLength = 1)]
+        public Guid TicketID { get; set; }
+
+        [EnumDataType(typeof(TicketStatus))]
         [Required]
+        public TicketStatus Status { get; set; }
 
-        public string? Status {get; set;}
-
-        public string? Priority {get; set;}
-
-        public string? Type {get; set;}
-
-        public string? Description {get; set;}
+        [EnumDataType(typeof(TicketPriority))]
         [Required]
+        public TicketPriority Priority { get; set; }
 
-        public string? TicketHistory {get; set;}
+        [EnumDataType(typeof(TicketType))]
+        [Required]
+        public TicketType Type { get; set; }
 
-        public string? Search {get; set;}
+        [Required]
+        public string? Description { get; set; }
 
-        public string? Management {get; set;}
+        public string? TicketHistory { get; set; }
 
+        public string? Search { get; set; }
+
+        public string? Management { get; set; }
+
+        public List<Customer>? Customers { get; set; }
 
     }
-        
 }
