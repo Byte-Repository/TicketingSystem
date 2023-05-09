@@ -5,6 +5,9 @@ namespace CIDM3312_FINALPROJECT.Models
     //Customer information to be able to identify various customers via FirstName, LastName, Email, PhoneNumber, PaymentMethod
     public class Customer
     {
+        [Key]
+        public int Id {get; set;}
+
         [StringLength(30, MinimumLength = 3)]
         [Required]
         public string? FirstName {get; set;}
