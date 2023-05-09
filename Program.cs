@@ -1,5 +1,8 @@
-using CIDM3312_FINALPROJECT.Models;
+
+using CIDM3312_FINALPROJECT.Data;
 using Microsoft.EntityFrameworkCore;
+using CIDM3312_FINALPROJECT.Models;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

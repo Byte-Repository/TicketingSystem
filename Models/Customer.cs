@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-
 namespace CIDM3312_FINALPROJECT.Models
 {
     //Customer information to be able to identify various customers via FirstName, LastName, Email, PhoneNumber, PaymentMethod
