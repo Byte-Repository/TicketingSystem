@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 
 
-
 namespace CIDM3312_FINALPROJECT.Pages.Tickets
 {
     public class IndexModel : PageModel
@@ -79,8 +78,24 @@ namespace CIDM3312_FINALPROJECT.Pages.Tickets
             // Pagination
             const int pageSize = 5;
 
-            Tickets = await PaginatedList<Ticket>.CreateAsync(
-                ticketsIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
+            PaginatedList<Ticket> paginatedTickets;
+
+            if (pageIndex.HasValue && pageIndex > 0)
+            {
+                paginatedTickets = await PaginatedList<Ticket>.CreateAsync(
+                    ticketsIQ.AsNoTracking(), pageIndex.Value, pageSize);
+            }
+            else
+            {
+                paginatedTickets = await PaginatedList<Ticket>.CreateAsync(
+                    ticketsIQ.AsNoTracking(), 1, pageSize);
+            }
+
+            Tickets = paginatedTickets;
+
+            // Set page index and total pages
+            PageIndex = paginatedTickets.PageIndex;
+            TotalPages = paginatedTickets.TotalPages;
 
             // Select list options
             Options = new SelectList(new Dictionary<string, string>
@@ -88,10 +103,44 @@ namespace CIDM3312_FINALPROJECT.Pages.Tickets
                 { "ticketName_asc", "Tickets Name (A-Z)" },
                 { "ticketName_desc", "Tickets Name (Z-A)" }
             }, "Key", "Value", SelectedValue);
-
-            // Set page index and total pages
-            PageIndex = pageIndex ?? 1;
-            TotalPages = Tickets.TotalPages;
         }
+
+    }
+        public class PaginatedList<T> : List<T>
+    {
+        public int PageIndex { get; private set; }
+        public int TotalPages { get; private set; }
+
+        public PaginatedList(List<T> items, int count, int pageIndex, int pageSize)
+        {
+            PageIndex = pageIndex;
+            TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+
+            this.AddRange(items);
+        }
+
+        public bool HasPreviousPage
+        {
+            get
+            {
+                return (PageIndex > 1);
+            }
+        }
+
+        public bool HasNextPage
+        {
+            get
+            {
+                return (PageIndex < TotalPages);
+            }
+        }
+
+        public static async Task<PaginatedList<T>> CreateAsync(IQueryable<T> source, int pageIndex, int pageSize)
+    {
+        var count = await source.CountAsync();
+        var items = await source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
+        return new PaginatedList<T>(items, count, pageIndex, pageSize);
+    }
+
     }
 }
