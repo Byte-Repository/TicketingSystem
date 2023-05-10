@@ -37,6 +37,10 @@ namespace CIDM3312_FINALPROJECT.Pages.Tickets
             }
 
             Customers = await _context.Customers.ToListAsync();
+            if (Customers == null)
+            {
+                Customers = new List<Customer>(); // Initialize with an empty list if null
+            }
 
             return Page();
         }
