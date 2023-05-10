@@ -20,11 +20,6 @@ using (var scope = app.Services.CreateScope())
     SeedData.Initialize(services);
 }
 
-builder.Services.AddDbContext<Context>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("Context"))
-        .LogTo(Console.WriteLine));
-
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
