@@ -1,0 +1,28 @@
+@model CIDM3312_FINALPROJECT.Models.Ticket
+
+<h2>Ticket Details</h2>
+
+<div>
+    <dl>
+        <dt>Ticket ID:</dt>
+        <dd>@Model.TicketID</dd>
+        <dt>Status:</dt>
+        <dd>@Model.Status</dd>
+        <dt>Priority:</dt>
+        <dd>@Model.Priority</dd>
+        <dt>Type:</dt>
+        <dd>@Model.Type</dd>
+        <dt>Description:</dt>
+        <dd>@Model.Description</dd>
+        <dt>Ticket History:</dt>
+        <dd>@Model.TicketHistory</dd>
+        <dt>Search Keywords:</dt>
+        <dd>@Model.Search</dd>
+        <dt>Management:</dt>
+        <dd>@Model.Management</dd>
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Back", "Index")
+</p>
