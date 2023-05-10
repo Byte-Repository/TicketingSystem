@@ -1,28 +1,47 @@
-@model CIDM3312_FINALPROJECT.Models.Ticket
+@page
+@model CIDM3312_FINALPROJECT.Pages.Tickets.DetailsModel
+@using CIDM3312_FINALPROJECT.Models
 
-<h2>Ticket Details</h2>
+@{
+    ViewData["Title"] = "Details";
+
+}
+
+<h1>Ticket Details</h1>
 
 <div>
-    <dl>
-        <dt>Ticket ID:</dt>
-        <dd>@Model.TicketID</dd>
-        <dt>Status:</dt>
-        <dd>@Model.Status</dd>
-        <dt>Priority:</dt>
-        <dd>@Model.Priority</dd>
-        <dt>Type:</dt>
-        <dd>@Model.Type</dd>
-        <dt>Description:</dt>
-        <dd>@Model.Description</dd>
-        <dt>Ticket History:</dt>
-        <dd>@Model.TicketHistory</dd>
-        <dt>Search Keywords:</dt>
-        <dd>@Model.Search</dd>
-        <dt>Management:</dt>
-        <dd>@Model.Management</dd>
+    <dl class="row">
+        <dt class="col-sm-2">Ticket ID:</dt>
+        <dd class="col-sm-10">@Model.Ticket!.TicketID</dd>
+
+        <dt class="col-sm-2">Status:</dt>
+        <dd class="col-sm-10">@Model.Ticket.Status</dd>
+
+        <dt class="col-sm-2">Priority:</dt>
+        <dd class="col-sm-10">@Model.Ticket.Priority</dd>
+
+        <dt class="col-sm-2">Type:</dt>
+        <dd class="col-sm-10">@Model.Ticket.Type</dd>
+
+        <dt class="col-sm-2">Description:</dt>
+        <dd class="col-sm-10">@Model.Ticket.Description</dd>
+
+        <dt class="col-sm-2">Ticket History:</dt>
+        <dd class="col-sm-10">@Model.Ticket.TicketHistory</dd>
+
+        <dt class="col-sm-2">Search Keywords:</dt>
+        <dd class="col-sm-10">@Model.Ticket.Search</dd>
+
+        <dt class="col-sm-2">Management:</dt>
+        <dd class="col-sm-10">@Model.Ticket.Management</dd>
+
+        <dt class="col-sm-2">Customer:</dt>
+        <dd class="col-sm-10">@Model.Customer?.FirstName @Model.Customer?.LastName</dd>
     </dl>
+
 </div>
 
 <p>
-    @Html.ActionLink("Back", "Index")
+    <a asp-page="./Edit" asp-route-id="@Model.Ticket.TicketID">Edit</a>
+    <a asp-page="./Delete" asp-route-id="@Model.Ticket.TicketID">Delete</a>
 </p>
