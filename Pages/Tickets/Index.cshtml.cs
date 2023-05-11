@@ -2,22 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CIDM3312_FINALPROJECT.Data;
 using CIDM3312_FINALPROJECT.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-
-
 namespace CIDM3312_FINALPROJECT.Pages.Tickets
 {
     public class IndexModel : PageModel
     {
-        private readonly CIDM3312_FINALPROJECT.Models.Context _context;
+        private readonly Context _context;
 
-        public IndexModel(CIDM3312_FINALPROJECT.Models.Context context)
+        public IndexModel(Context context)
         {
             _context = context;
         }
@@ -28,29 +25,18 @@ namespace CIDM3312_FINALPROJECT.Pages.Tickets
         public SelectList? Options { get; set; }
         [BindProperty(SupportsGet = true)]
         public string? SelectedValue { get; set; }
-        public string? SortOrder { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string? SortOrder { get; set; } 
         public int PageIndex { get; set; }
         public int TotalPages { get; set; }
-        public bool HasPreviousPage
-        {
-            get
-            {
-                return (PageIndex > 1);
-            }
-        }
-
-        public bool HasNextPage
-        {
-            get
-            {
-                return (PageIndex < TotalPages);
-            }
-        }
+        public bool HasPreviousPage => PageIndex > 1;
+        public bool HasNextPage => PageIndex < TotalPages;
 
         public async Task OnGetAsync(string sortOrder, string searchString, int? pageIndex)
         {
             // Set sort order
-            SortOrder = sortOrder;
+            sortOrder ??= "ticketName_asc";
 
             // Filter by search string
             SearchString = searchString;
@@ -104,9 +90,9 @@ namespace CIDM3312_FINALPROJECT.Pages.Tickets
                 { "ticketName_desc", "Tickets Name (Z-A)" }
             }, "Key", "Value", SelectedValue);
         }
-
     }
-        public class PaginatedList<T> : List<T>
+
+    public class PaginatedList<T> : List<T>
     {
         public int PageIndex { get; private set; }
         public int TotalPages { get; private set; }
@@ -119,28 +105,11 @@ namespace CIDM3312_FINALPROJECT.Pages.Tickets
             this.AddRange(items);
         }
 
-        public bool HasPreviousPage
-        {
-            get
-            {
-                return (PageIndex > 1);
-            }
-        }
-
-        public bool HasNextPage
-        {
-            get
-            {
-                return (PageIndex < TotalPages);
-            }
-        }
-
         public static async Task<PaginatedList<T>> CreateAsync(IQueryable<T> source, int pageIndex, int pageSize)
-    {
-        var count = await source.CountAsync();
-        var items = await source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
-        return new PaginatedList<T>(items, count, pageIndex, pageSize);
-    }
-
+        {
+            var count = await source.CountAsync();
+            var items = await source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
+            return new PaginatedList<T>(items, count, pageIndex, pageSize);
+        }
     }
 }
