@@ -1,0 +1,56 @@
+@page
+@model CIDM3312_FINALPROJECT.Pages.Tickets.DeleteModel
+@using CIDM3312_FINALPROJECT.Models
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete Ticket</h1>
+
+<dt class="col-sm-2">&nbsp;</dt> <!-- Add an empty dt element for spacing -->
+
+<h3>Are you sure you want to delete this ticket?</h3>
+
+<dt class="col-sm-2">&nbsp;</dt> <!-- Add an empty dt element for spacing -->
+
+<div>
+    <h4>Ticket Details</h4>
+
+    <dt class="col-sm-2">&nbsp;</dt> <!-- Add an empty dt element for spacing -->
+
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Ticket ID:</dt>
+        <dd class="col-sm-10">@Model.Ticket!.TicketID</dd>
+
+        <dt class="col-sm-2">Status:</dt>
+        <dd class="col-sm-10">@Model.Ticket.Status</dd>
+
+        <dt class="col-sm-2">Priority:</dt>
+        <dd class="col-sm-10">@Model.Ticket.Priority</dd>
+
+        <dt class="col-sm-2">Type:</dt>
+        <dd class="col-sm-10">@Model.Ticket.Type</dd>
+
+        <dt class="col-sm-2">Description:</dt>
+        <dd class="col-sm-10">@Model.Ticket.Description</dd>
+
+        <dt class="col-sm-2">Ticket History:</dt>
+        <dd class="col-sm-10">@Model.Ticket.TicketHistory</dd>
+
+        <dt class="col-sm-2">Search Keywords:</dt>
+        <dd class="col-sm-10">@Model.Ticket.Search</dd>
+
+        <dt class="col-sm-2">Management:</dt>
+        <dd class="col-sm-10">@Model.Ticket.Management</dd>
+    </dl>
+
+    <dt class="col-sm-2">&nbsp;</dt> <!-- Add an empty dt element for spacing -->
+
+    <form method="post">
+        <input type="hidden" asp-for="Ticket!.TicketID" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+    </form>
+</div>

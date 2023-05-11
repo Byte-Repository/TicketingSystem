@@ -8,7 +8,7 @@
 
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Tickets";
 }
 
 <h1>Tickets</h1>
@@ -24,6 +24,10 @@
     <label>Sort by:</label>
     <select asp-for="SelectedValue" asp-items="Model.Options"></select>
     <button type="submit">Sort</button>
+</div>
+
+<div class="text-right">
+    <a class="btn btn-primary" href="~/Tickets/Create">Create Ticket</a>
 </div>
 
 <table class="table">

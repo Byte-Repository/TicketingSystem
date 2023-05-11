@@ -9,17 +9,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CIDM3312_FINALPROJECT.Pages.Tickets
 {
-    public class DetailsModel : PageModel
+    public class DeleteModel : PageModel
     {
         private readonly CIDM3312_FINALPROJECT.Models.Context _context;
 
-        public DetailsModel(CIDM3312_FINALPROJECT.Models.Context context)
+        public DeleteModel(CIDM3312_FINALPROJECT.Models.Context context)
         {
             _context = context;
         }
 
+        [BindProperty]
         public Ticket? Ticket { get; set; } // Make nullable
-        public Customer? Customer { get; set; } // Make nullable
 
         public IActionResult OnGet(Guid? id)
         {
@@ -35,14 +35,20 @@ namespace CIDM3312_FINALPROJECT.Pages.Tickets
                 return NotFound();
             }
 
-            Customer = _context.Customers.FirstOrDefault(c => c.Id == Ticket.CustomerId);
+            return Page();
+        }
 
-            if (Customer == null)
+        public IActionResult OnPost()
+        {
+            if (Ticket == null)
             {
                 return NotFound();
             }
 
-            return Page();
+            _context.Tickets.Remove(Ticket);
+            _context.SaveChanges();
+
+            return RedirectToPage("./Index");
         }
     }
 }

@@ -4,10 +4,11 @@
 
 @{
     ViewData["Title"] = "Details";
-
 }
 
 <h1>Ticket Details</h1>
+
+<dt class="col-sm-2">&nbsp;</dt> <!-- Add an empty dt element for spacing -->
 
 <div>
     <dl class="row">
@@ -32,13 +33,26 @@
         <dt class="col-sm-2">Search Keywords:</dt>
         <dd class="col-sm-10">@Model.Ticket.Search</dd>
 
-        <dt class="col-sm-2">Management:</dt>
+        <dt class="col-sm-2">Management: </dt>
         <dd class="col-sm-10">@Model.Ticket.Management</dd>
 
-        <dt class="col-sm-2">Customer:</dt>
-        <dd class="col-sm-10">@Model.Customer?.FirstName @Model.Customer?.LastName</dd>
-    </dl>
+        <dt class="col-sm-2"> </dt>
+        <dd class="col-sm-10"> </dd>
 
+        <dt class="col-sm-2">Customer:</dt>
+        <dd class="col-sm-10">
+            <a asp-page="/Customers/Details" asp-route-id="@Model.Customer?.Id">@Model.Customer?.FirstName @Model.Customer?.LastName</a>
+        </dd>
+
+        <dt class="col-sm-2">Email:</dt>
+        <dd class="col-sm-10">@Model.Customer?.Email</dd>
+
+        <dt class="col-sm-2">Phone Number:</dt>
+        <dd class="col-sm-10">@Model.Customer?.PhoneNumber</dd>
+
+        <dt class="col-sm-2">Payment Method:</dt>
+        <dd class="col-sm-10">@Model.Customer?.PaymentMethod</dd>
+    </dl>
 </div>
 
 <p>
