@@ -27,7 +27,7 @@ namespace CIDM3312_FINALPROJECT.Pages.Tickets
         public string? SelectedValue { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public string? SortOrder { get; set; } 
+        public int SortOrder { get; set; } 
         public int PageIndex { get; set; }
         public int TotalPages { get; set; }
         public bool HasPreviousPage => PageIndex > 1;

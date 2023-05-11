@@ -15,7 +15,7 @@
 
 <div>
     <form method="get" action="@Url.Action("Index")">
-        <input type="text" name="searchString" placeholder="Search by ticket name...">
+        <input type="text" name="searchString" placeholder="Search by ticket description...">
         <button type="submit">Search</button>
     </form>
 </div>
@@ -84,7 +84,7 @@
             @if (Model.HasPreviousPage)
             {
                 <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PageIndex - 1, sortOrder = Model.SortOrder, searchString = Model.SearchString })">Previous</a>
+                    <a class="page-link" asp-page="./Index" asp-route-pageIndex="@(Model.PageIndex - 1)" asp-route-sortOrder="@(Model.SortOrder)" asp-route-searchString="@(Model.SearchString)">Previous</a>
                 </li>
             }
             else
@@ -105,7 +105,7 @@
                 else
                 {
                     <li class="page-item">
-                        <a class="page-link" href="@Url.Action("Index", new { page = i, sortOrder = Model.SortOrder, searchString = Model.SearchString })">@i</a>
+                        <a class="page-link" asp-page="./Index" asp-route-pageIndex="@i" asp-route-sortOrder="@(Model.SortOrder)" asp-route-searchString="@(Model.SearchString)">@i</a>
                     </li>
                 }
             }
@@ -113,7 +113,7 @@
             @if (Model.HasNextPage)
             {
                 <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PageIndex + 1, sortOrder = Model.SortOrder, searchString = Model.SearchString })">Next</a>
+                    <a class="page-link" asp-page="./Index" asp-route-pageIndex="@(Model.PageIndex + 1)" asp-route-sortOrder="@(Model.SortOrder)" asp-route-searchString="@(Model.SearchString)">Next</a>
                 </li>
             }
             else
@@ -125,3 +125,4 @@
         </ul>
     </nav>
 </div>
+
